@@ -1,2 +1,2 @@
 # HRVST-NFT-Backend
-For running managing NFTs
+For managing NFTs
