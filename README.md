@@ -2,10 +2,8 @@
 For managing NFTs
 
 ## Developer Notes
-* 1.5 Create the server.js File :
 
-The server.js file will initialize your Express server and import routes from the routes/nft.js file.
-
-* 1.6 Create the routes/nft.js File
-
-This is where you'll define the API endpoints for minting open editions and airdropping NFTs.
+* Set up the Backend: Use Node.js and Express to build the backend, integrate Thirdweb SDK to manage NFT minting and airdropping.
+* Deploy to a Cloud Service: Deploy the backend to Vercel
+* Integrate with GPT: Define your OpenAPI 3.1.0 spec for the GPT and configure prompts to collect inputs and trigger the API.
+* Test and Deploy: Test the full system to ensure smooth interaction between the GPT, API, and blockchain.
