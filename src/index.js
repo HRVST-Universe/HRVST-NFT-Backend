@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 import nftRoutes from './routes/nftRoutes.js';
 import tokenRoutes from './routes/tokenRoutes.js';
 
@@ -11,32 +11,28 @@ config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//Security Middleware
+// Security middleware
 app.use(helmet());
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
-//Rate limiting
-const limiter = rateLimit(({
-windowsMS: 15 * 60 * 1000, // 15 minutes
-max: 100 // limit each IP to 100 requests per window
-}));
-
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 app.use(limiter);
 
-//Routes
-app.use('./api/nft', nftRoutes);
-app.use('./api/token', tokenRoutes);
+// Routes
+app.use('/api/nft', nftRoutes);
+app.use('/api/token', tokenRoutes);
 
-//Error handling
-app.use(err, req, res, next) => {
-console.err(err.stack);
-res.status(500).json({error : 'Something went wrong!'
-});
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
 app.listen(PORT, () => {
-console.log('Server is running on port ${PORT}');
-    });
-    
-
+  console.log(`Server running on port ${PORT}`);
+});
