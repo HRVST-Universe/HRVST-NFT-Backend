@@ -30,12 +30,8 @@ export class NftService {
 
   // Get details of a specific NFT by its mint address
   async getNftDetails(mintAddress: string): Promise<any> {
-    try {
-      const nftPublicKey = new PublicKey(mintAddress);
-      const nft = await this.metaplex.nfts().findByMint({ mint: nftPublicKey });
-      return nft;
-    } catch (error) {
-      throw new Error(`Failed to fetch NFT details: ${error.message}`);
-    }
+    const nftPublicKey = new PublicKey(mintAddress);
+    const nft = await this.metaplex.nfts().findByMint({ mint: nftPublicKey });
+    return nft;
   }
 }

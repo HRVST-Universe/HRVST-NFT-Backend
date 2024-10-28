@@ -1,49 +1,42 @@
-import { Controller, Post, Get, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { NftService } from './nft.service';
+import { MintNftDto } from './mint-nft.dto';
 
-  @Controller('nft')
-  export class NftController {
-    constructor(private readonly nftService: NftService) {}
+@Controller('nft')
+export class NftController {
+  constructor(private readonly nftService: NftService) {}
 
-    // Route for fetching details of a specific NFT by its mint address
-    @Get(':mintAddress')
-    async getNftByMintAddress(@Param('mintAddress') mintAddress: string) {
-      const nft = await this.nftService.getNftDetails(mintAddress);
-      return { message: 'NFT details fetched successfully', nft };
-    }
-  }
-
-  // Mint a new NFT
+  // Endpoint to mint a new NFT
   @Post('mint')
-  async mintNft(@Body() body: { wallet: string; metadataUri: string }) {
-    const { wallet, metadataUri } = body;
+  async mintNft(@Body() body: MintNftDto) {
     try {
-      const nft = await this.nftService.mintNft(wallet, metadataUri);
-      return { message: 'NFT minted successfully', nft };
+      const { wallet, metadataUri } = body;
+      const nftMinted = await this.nftService.mintNft(wallet, metadataUri);
+      return { message: 'NFT minted successfully', nftMinted };
     } catch (error) {
-      throw new HttpException('Failed to mint NFT', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(`Failed to mint NFT: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 
-  // Get all minted NFTs for a wallet
-  @Get(':walletAddress')
+  // Endpoint to get all NFTs owned by a specific wallet address
+  @Get('wallet/:walletAddress')
   async getNftsByWallet(@Param('walletAddress') walletAddress: string) {
     try {
       const nfts = await this.nftService.getNftsByWallet(walletAddress);
-      return { walletAddress, nfts };
+      return { message: 'NFTs fetched successfully', nfts };
     } catch (error) {
-      throw new HttpException('Failed to fetch NFTs', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(`Failed to fetch NFTs: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 
-  // Fetch details of a specific NFT
-  @Get('details/:mintAddress')
+  // Endpoint to get details of a specific NFT by its mint address
+  @Get(':mintAddress')
   async getNftDetails(@Param('mintAddress') mintAddress: string) {
     try {
-      const nftDetails = await this.nftService.getNftDetails(mintAddress);
-      return { nftDetails };
+      const nft = await this.nftService.getNftDetails(mintAddress);
+      return { message: 'NFT details fetched successfully', nft };
     } catch (error) {
-      throw new HttpException('Failed to fetch NFT details', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(`Failed to fetch NFT details: ${error.message}`, HttpStatus.BAD_REQUEST);
     }
   }
 }
