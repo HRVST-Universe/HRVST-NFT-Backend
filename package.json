@@ -1,0 +1,42 @@
+{
+  "name": "nft-management-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "build": "tsc",
+    "start:prod": "node dist/main"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.4.6",
+    "@nestjs/core": "^10.4.6",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/mongoose": "^10.1.0",
+    "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^10.4.6",
+    "arweave": "^1.10.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.7.3",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.0",
+    "umi": "^4.3.28"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.4.5",
+    "typescript": "^5.0.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "description": "for nft management",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HRVST-Universe/HRVST-NFT-Backend.git"
+  },
+  "author": "hrvstoracle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HRVST-Universe/HRVST-NFT-Backend/issues"
+  },
+  "homepage": "https://github.com/HRVST-Universe/HRVST-NFT-Backend#readme"
+}
